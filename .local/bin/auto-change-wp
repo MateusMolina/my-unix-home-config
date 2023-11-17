@@ -1,0 +1,32 @@
+#!/bin/bash
+
+WIDTH_MIN=2560
+PATH_IMG=/home/mateusmolina/tmp/img.jpg
+# List of subreddit to search
+sublist=("earthporn" "waterporn" "skyporn" "spaceporn" "seaporn" "wallpaper" "wallpapers")
+
+# Select a random one
+selectedElement=${sublist[$RANDOM % ${#sublist[@]}]}
+
+#get the 100 latests posts
+json_result=$(curl -s -A "reddit scraper" "https://www.reddit.com/r/$selectedElement/hot.json?limit=100")
+
+#filter by width (just so we can get some good quality photos)
+json_result_filtered=$(echo $json_result | jq -c ".data.children |= map(select(.data.preview.images[0].source.width > $WIDTH_MIN))")
+
+#len of filtered results
+len=$(echo $json_result_filtered | jq -c '.data.children | length')
+#random
+num=$(($RANDOM % $len + 1))
+
+#get image of the random idx
+image=$(echo $json_result_filtered | jq -c ".data.children[$num].data.url_overridden_by_dest" | sed 's/"//g')
+
+#download the image and set as wallpaper
+curl $image -o $PATH_IMG
+
+feh --bg-fill $PATH_IMG
+
+#apply colors to i3
+wal -c
+wal -i $PATH_IMG
