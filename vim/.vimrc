@@ -18,7 +18,6 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 set laststatus=2
 
-
 " auto install plug.vim
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -37,8 +36,6 @@ call plug#begin()
 
 Plug 'skywind3000/asyncrun.vim'
 Plug 'samgriesemer/vim-roam'
-Plug 'vimwiki/vimwiki'
-Plug 'ChesleyTan/wordCount.vim'
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -50,16 +47,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 
 "themes
-Plug 'joshdick/onedark.vim'
-Plug 'dylanaraps/wal.vim'
 Plug 'morhetz/gruvbox'
 call plug#end()
-
-"colorscheme onedark
-"colorscheme wal
-
-" Currently not doing anything I guess
-set statusline+=%{wordCount#WordCount()}
 
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
