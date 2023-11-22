@@ -16,8 +16,6 @@ set wildmode=list:longest
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
-set laststatus=2
-
 " auto install plug.vim
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -26,11 +24,14 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 " Some shortcuts i cant live without
-nnoremap <S-Up> :m-2<CR>
-nnoremap <S-Down> :m+<CR>
-inoremap <S-Up> <Esc>:m-2<CR>
-inoremap <S-Down> <Esc>:m+<CR>
-
+nnoremap <A-Up> :m-2<CR>
+nnoremap <A-Down> :m+<CR>
+inoremap <A-Up> <Esc>:m-2<CR>
+inoremap <A-Down> <Esc>:m+<CR>
+nnoremap <C-S-Down> Yp
+inoremap <C-S-Down> <Esc>Yp<CR>
+nnoremap <C-S-Up> Y<Up>p
+inoremap <C-S-Up> <Esc>Y<Up>p<CR>
 
 call plug#begin()
 
@@ -39,20 +40,17 @@ Plug 'samgriesemer/vim-roam'
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+
+Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
-
 "themes
 Plug 'morhetz/gruvbox'
 call plug#end()
-
-let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
-  \ }
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -69,6 +67,23 @@ if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
     set termguicolors
   endif
 endif
+
 set background=dark
+function! s:tweak_colorscheme()
+  " hi Normal guibg=NONE ctermbg=NONE
+  " hi LineNr guibg=NONE ctermbg=NONE
+endfunction
+
+autocmd! ColorScheme gruvbox call s:tweak_colorscheme()
+
 colorscheme gruvbox
+
+let g:airline#extensions#tabline#enabled = 1
+
+""" GOYO STUFF  """
+" Call goyo when opening a markdown file
+autocmd Filetype markdown call SetUpMk()
+function SetUpMk()
+    execute 'Goyo 50%'
+endfunction
 
