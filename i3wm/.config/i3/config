@@ -303,6 +303,8 @@ bindsym $mod+N exec --no-startup-id i3-sensible-terminal -e "fish -c ' wal -R 1>
 # Start nautilus
 bindsym $mod+$alt+E exec --no-startup-id nautilus
 
+# Start battery popup <https://github.com/rjekker/i3-battery-popup>
+exec --no-startup-id ~/.scripts/i3-battery-popup/i3-battery-popup
 
 # Removes titlebar
 for_window [class="^.*"] border pixel 2

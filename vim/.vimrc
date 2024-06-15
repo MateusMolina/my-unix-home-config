@@ -2,7 +2,7 @@ set nocompatible
 filetype plugin on
 syntax on
 set linebreak 
-set cursorline
+" set cursorline
 highlight clear CursorLine
 set number
 set tabstop=2
@@ -35,21 +35,16 @@ inoremap <C-S-Up> <Esc>Y<Up>p<CR>
 
 call plug#begin()
 
-Plug 'skywind3000/asyncrun.vim'
-Plug 'samgriesemer/vim-roam'
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
-" Plug 'itchyny/lightline.vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/goyo.vim'
 "themes
-Plug 'morhetz/gruvbox'
 call plug#end()
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -74,16 +69,5 @@ function! s:tweak_colorscheme()
   " hi LineNr guibg=NONE ctermbg=NONE
 endfunction
 
-autocmd! ColorScheme gruvbox call s:tweak_colorscheme()
-
-colorscheme gruvbox
-
 let g:airline#extensions#tabline#enabled = 1
-
-""" GOYO STUFF  """
-" Call goyo when opening a markdown file
-autocmd Filetype markdown call SetUpMk()
-function SetUpMk()
-    execute 'Goyo 50%'
-endfunction
 
