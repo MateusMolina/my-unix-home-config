@@ -70,8 +70,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-# set $term gnome-terminal -e fish -c wal -R 1>/dev/null;fish
-set $term i3-sensible-terminal -e "fish -c ' wal -R 1>/dev/null && fish'"
+set $term i3-sensible-terminal
 bindsym $mod+Return exec $term 
 bindsym $mod+t exec $term
 
@@ -227,9 +226,9 @@ bindsym $mod+r mode "resize"
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
 set_from_resource $fg i3wm.color6 #f0f0f0
-set_from_resource $bg i3wm.color0 #f0f0f0
-set_from_resource $bg2 i3wm.color0 #f0f0f0
-set_from_resource $ac i3wm.color4 #f0f0f0
+set_from_resource $bg i3wm.color0 #202020
+set_from_resource $bg2 i3wm.color0 #202020
+set_from_resource $ac i3wm.color4 #0EABA0
 
 # class                 border  backgr. text indicator child_border
 client.focused          $ac     $ac     $fg  $ac       $ac
@@ -296,9 +295,8 @@ bindsym $sup+$alt+L exec --no-startup-id loginctl lock-session
 # exec_always --no-startup-id killall dunst
 # exec_always --no-startup-id dunst -background "$bg" -nb "$bg" -cb "$bg" -lf "$fg" -bf "$fg" -cf "$fg" -nf "$fg" -lfr "$ac" -bfr "$ac" -cfr "$ac" -nfr "$ac" 
 exec --no-startup-id dunst
-bindsym $mod+N exec --no-startup-id i3-sensible-terminal -e "fish -c ' wal -R 1>/dev/null && dunstctl history | prettyjson | less -rN && fish'"
+bindsym $mod+N exec --no-startup-id i3-sensible-terminal
 # exec_always --no-startup-id dunstify -r 1 "Fell free to use me as you please"
-
 
 # Start nautilus
 bindsym $mod+$alt+E exec --no-startup-id nautilus
