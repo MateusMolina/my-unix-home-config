@@ -3,7 +3,7 @@ filetype plugin on
 syntax on
 set linebreak 
 " set cursorline
-highlight clear CursorLine
+"highlight clear CursorLine
 set number
 set tabstop=2
 " Enable auto completion menu after pressing TAB.
@@ -17,13 +17,14 @@ set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 " auto install plug.vim
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+let data_dir = has('snvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " Some shortcuts i cant live without
+let mapleader = " " " map leader to Space
 nnoremap <A-Up> :m-2<CR>
 nnoremap <A-Down> :m+<CR>
 inoremap <A-Up> <Esc>:m-2<CR>
@@ -33,24 +34,33 @@ inoremap <C-S-Down> <Esc>Yp<CR>
 nnoremap <C-S-Up> Y<Up>p
 inoremap <C-S-Up> <Esc>Y<Up>p<CR>
 
+" Other commands
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+" Here begins plug
+
 call plug#begin()
 
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
-
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 "themes
 call plug#end()
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
+if (getenv('TERM_PROGRAM') != 'Apple_Terminal')
   if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -64,10 +74,12 @@ if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
 endif
 
 set background=dark
-function! s:tweak_colorscheme()
-  " hi Normal guibg=NONE ctermbg=NONE
-  " hi LineNr guibg=NONE ctermbg=NONE
-endfunction
 
 let g:airline#extensions#tabline#enabled = 1
 
+" Plugin customizations
+"" airblade/vim-gitgutter
+highlight! link SignColumn LineNr
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
