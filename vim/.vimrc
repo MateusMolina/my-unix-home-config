@@ -2,6 +2,7 @@ set nocompatible
 filetype plugin on
 syntax on
 set linebreak 
+:set relativenumber
 " set cursorline
 "highlight clear CursorLine
 set number
@@ -35,24 +36,27 @@ nnoremap <C-S-Up> Y<Up>p
 inoremap <C-S-Up> <Esc>Y<Up>p<CR>
 
 " Other commands
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <leader>f :Files .<CR>
+nnoremap <leader><CR> :ALEGoToImplementation<CR>
+nnoremap <leader><Space> gd
+
+" Configs
+let g:ale_completion_enabled = 1
 
 " Here begins plug
 
 call plug#begin()
 
 Plug 'dense-analysis/ale'
-Plug 'preservim/nerdtree'
-Plug 'sheerun/vim-polyglot'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'vim-airline/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot' " Syntax highlighter for vim
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Adds multiple cursors to vim, like VSCode
+Plug 'vim-airline/vim-airline' " A cool line on the bottom
+Plug 'airblade/vim-gitgutter' " See ~, +, - in the git gutter
+Plug 'tpope/vim-fugitive' " git stuff
+Plug 'tpope/vim-commentary' " vim-motion comment with shortcut gc (gcc for a line) 
+Plug 'jiangmiao/auto-pairs' " auto complete (,[...
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder
+Plug 'junegunn/fzf.vim' " Sane defaults for fzf wrapper
 
 "themes
 call plug#end()
