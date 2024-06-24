@@ -26,14 +26,19 @@ endif
 
 " Some shortcuts i cant live without
 let mapleader = " " " map leader to Space
-nnoremap <A-Up> :m-2<CR>
-nnoremap <A-Down> :m+<CR>
-inoremap <A-Up> <Esc>:m-2<CR>
-inoremap <A-Down> <Esc>:m+<CR>
-nnoremap <C-S-Down> Yp
-inoremap <C-S-Down> <Esc>Yp<CR>
-nnoremap <C-S-Up> Y<Up>p
-inoremap <C-S-Up> <Esc>Y<Up>p<CR>
+nnoremap <A-k> :m-2<CR>
+nnoremap <A-j> :m+<CR>
+inoremap <A-k> <Esc>:m-2<CR>
+inoremap <A-j> <Esc>:m+<CR>
+nnoremap <C-A-j> Yp
+inoremap <C-A-j> <Esc>Yp<CR>
+nnoremap <C-A-k> Y<Up>p
+inoremap <C-A-k> <Esc>Y<Up>p<CR>
+
+" Interacting with xclip
+" Requires aliases for pbcopy and pbpaste
+vnoremap <C-S-c> :!pbcopy<CR>u
+nnoremap <C-S-v> :!pbpaste<CR>
 
 " Other commands
 nnoremap <leader>f :Files .<CR>
@@ -87,3 +92,7 @@ highlight! link SignColumn LineNr
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
+" Make bash run interactive; in order to load the aliases/.bashrc
+set shellcmdflag=-ic
+
